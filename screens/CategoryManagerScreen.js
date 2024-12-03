@@ -6,13 +6,15 @@ const CategoryManager = ({ categories, setCategories }) => {
   const [newCategory, setNewCategory] = useState('');
 
   const addCategory = () => {
-    if (newCategory.trim() !== '' && !categories.includes(newCategory.trim())) {
-      setCategories(prevCategories => [...prevCategories, newCategory.trim()]);
+    if (newCategory && !categories.find(cat => cat.name === newCategory)) {
+      setCategories([...categories, { name: newCategory, color }]);
       setNewCategory('');
+      setColor(colorOptions[0].value);
     } else {
-      alert('Please enter a valid category name or the category already exists.');
+      alert('Category already exists or invalid');
     }
   };
+  
 
   const removeCategory = (categoryToRemove) => {
     setCategories(prevCategories => prevCategories.filter(category => category !== categoryToRemove));
