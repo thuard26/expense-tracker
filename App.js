@@ -12,8 +12,14 @@ import styles from './styles/styles';
 const Stack = createStackNavigator();
 
 export default function App() {
-  const [categories, setCategories] = useState(['Food', 'Clothes', 'Bills', 'Others']);
+  const [categories, setCategories] = useState([
+    { name: 'Food', color: '#FF0000' }, 
+    { name: 'Clothes', color: '#00FF00' }, 
+    { name: 'Bills', color: '#0000FF' },
+    { name: 'Others', color: '#5adbac'}]);
+
   const [expenses, setExpenses] = useState([]);
+  
 
   return (
     <NavigationContainer>
@@ -31,7 +37,7 @@ export default function App() {
           {(props) => <ExpenseManager {...props} expenses={expenses} setExpenses={setExpenses} />}
         </Stack.Screen>
         <Stack.Screen name="TotalExpensesScreen">
-          {(props) => <TotalExpensesScreen {...props} expenses={expenses} />}
+          {(props) => <TotalExpensesScreen {...props} expenses={expenses} categories={categories}/>}
         </Stack.Screen>
       </Stack.Navigator>
     </NavigationContainer>
