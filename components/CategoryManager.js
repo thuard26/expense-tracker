@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { SafeAreaView, Text, TextInput, Button, FlatList, View } from 'react-native';
-import RNPickerSelect from 'react-native-picker-select';
+import { Picker } from '@react-native-picker/picker';
 import styles from '../styles/styles';
 
 const colorOptions = [
@@ -42,17 +42,17 @@ const CategoryManager = ({ categories, setCategories }) => {
         placeholder="Enter new category"
       />
 
-      <RNPickerSelect
-        onValueChange={value => setColor(value)}
-        items={colorOptions}
-        value={color}
-        placeholder={{ label: "Select a color...", value: null }}
-        style={{
-          inputIOS: styles.textInput,
-          inputAndroid: styles.textInput,
-          placeholder: { color: 'gray' },
-        }}
-      />
+      <View style={styles.pickerContainer}>
+        <Picker
+          selectedValue={color}
+          onValueChange={(itemValue) => setColor(itemValue)}
+          style={styles.picker}
+        >
+          {colorOptions.map((option) => (
+            <Picker.Item key={option.value} label={option.label} value={option.value} />
+          ))}
+        </Picker>
+      </View>
 
       <Button title="Add Category" onPress={addCategory} />
 
